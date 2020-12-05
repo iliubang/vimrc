@@ -33,6 +33,9 @@ on_cmd = ['Gblame', 'Glog', 'Gdiff', 'Gstatus', 'Git!', 'Grebase', 'Gpull']
 repo = 'junegunn/gv.vim'
 
 [[plugins]]
+repo = 'mhinz/vim-signify'
+
+[[plugins]]
 repo = 'kana/vim-textobj-user'
 
 [[plugins]]
@@ -118,26 +121,41 @@ let g:vista_executive_for = {
   \ }
 '''
 
+# [[plugins]]
+# repo = 'liuchengxu/vim-clap'
+# merged = 0
+# build = 'bash install.sh'
+# on_map = '<plug>'
+# hook_source = '''
+# let g:clap_default_external_filter = 'fzy'
+# let g:clap_cache_directory = $DATA_PATH . '/clap'
+# let g:clap_layout = { 'relative': 'editor' }
+# let g:clap_enable_icon = 1
+# " let g:clap_popup_border = 'sharp'
+# let g:clap_provider_grep_enable_icon = 1
+# let g:clap_insert_mode_only = v:true
+# " let g:clap_search_box_border_style = 'curve'
+# let g:clap_current_selection_sign= { 'text': "\uf124", 'texthl': "ClapCurrentSelectionSign", "linehl": "ClapCurrentSelection"}
+# '''
+# 
+# [[plugins]]
+# repo = 'vn-ki/coc-clap'
+# on_source = 'vim-clap'
+# 
+
 [[plugins]]
-repo = 'liuchengxu/vim-clap'
-merged = 0
-build = 'bash install.sh'
-on_map = '<plug>'
-hook_source = '''
-let g:clap_default_external_filter = 'fzy'
-let g:clap_cache_directory = $DATA_PATH . '/clap'
-let g:clap_layout = { 'relative': 'editor' }
-let g:clap_enable_icon = 1
-" let g:clap_popup_border = 'sharp'
-let g:clap_provider_grep_enable_icon = 1
-let g:clap_insert_mode_only = v:true
-" let g:clap_search_box_border_style = 'curve'
-let g:clap_current_selection_sign= { 'text': "\uf124", 'texthl': "ClapCurrentSelectionSign", "linehl": "ClapCurrentSelection"}
+repo = 'nvim-telescope/telescope.nvim'
+on_cmd = 'Telescope'
+on_source = '''
 '''
 
 [[plugins]]
-repo = 'vn-ki/coc-clap'
-on_source = 'vim-clap'
+repo = 'nvim-lua/popup.nvim'
+on_source = 'telescope.nvim'
+
+[[plugins]]
+repo = 'nvim-lua/plenary.nvim'
+on_source = 'telescope.nvim'
 
 [[plugins]]
 repo = 'brooth/far.vim'
@@ -171,3 +189,6 @@ let g:move_key_modifier = 'C'
 [[plugins]]
 repo = 'dstein64/vim-startuptime'
 on_cmd = ['StartupTime']
+
+[[plugins]]
+repo = 'google/vim-searchindex'

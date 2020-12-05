@@ -1,0 +1,19 @@
+[[plugins]]
+repo = 'neovim/nvim-lspconfig'
+
+[[plugins]]
+repo = 'nvim-lua/completion-nvim'
+depends = 'nvim-lspconfig'
+
+[[plugins]]
+repo = 'euclidianAce/BetterLua.vim'
+
+[[plugins]]
+repo = 'tjdevries/manillua.nvim'
+
+[[plugins]]
+repo = 'kyazdani42/nvim-web-devicons'
+
+[[plugins]]
+repo = 'tjdevries/nlua.nvim'
+depends = ['nvim-lspconfig', 'nvim-web-devicons']

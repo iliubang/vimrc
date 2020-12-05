@@ -23,3 +23,5 @@ let dein#inline_vimrcs = [
    \ ]
 
 call pm#_start()
+
+lua require('init')

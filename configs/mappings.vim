@@ -121,28 +121,37 @@ if dein#tap('lightline-bufferline')
   nmap <silent> <expr> <Leader>0 (utils#is_special_buffer() ? "\<c-w>\<c-w>" : '')."<Plug>lightline#bufferline#go(10)"
 endif
 
-if dein#tap('vim-clap')
-  nnoremap <silent> <Leader>tc :<C-u>Clap colors<CR>
-  nnoremap <silent> <Leader>bb :<C-u>Clap buffers<CR>
-  nnoremap <silent> <Leader>fa :<C-u>Clap grep2<CR>
-  nnoremap <silent> <Leader>fb :<C-u>Clap marks<CR>
-  " ctrl-p
-  nnoremap <silent> <C-p>      :<C-u>Clap filer<CR>
-  nnoremap <silent> <Leader>ff :<C-u>Clap files ++finder=rg --ignore --hidden --files<cr>
-  nnoremap <silent> <Leader>fg :<C-u>Clap gfiles<CR>
-  nnoremap <silent> <Leader>ag :<C-u>Clap grep<cr>
-  nnoremap <silent> <Leader>fw :<C-u>Clap grep ++query=<cword><cr>
-  nnoremap <silent> <Leader>fh :<C-u>Clap history<CR>
-  nnoremap <silent> <Leader>fW :<C-u>Clap windows<CR>
-  nnoremap <silent> <Leader>fl :<C-u>Clap loclist<CR>
-  nnoremap <silent> <Leader>fu :<C-u>Clap git_diff_files<CR>
-  nnoremap <silent> <Leader>fv :<C-u>Clap grep ++query=@visual<CR>
-  nnoremap <silent> <Leader>oc :<C-u>Clap dotfiles<CR>
-  nnoremap <silent> <LocalLeader>g :<C-u>Clap gosource<CR>
+" if dein#tap('vim-clap')
+"   nnoremap <silent> <Leader>tc :<C-u>Clap colors<CR>
+"   nnoremap <silent> <Leader>bb :<C-u>Clap buffers<CR>
+"   nnoremap <silent> <Leader>fa :<C-u>Clap grep2<CR>
+"   nnoremap <silent> <Leader>fb :<C-u>Clap marks<CR>
+"   " ctrl-p
+"   nnoremap <silent> <C-p>      :<C-u>Clap filer<CR>
+"   nnoremap <silent> <Leader>ff :<C-u>Clap files ++finder=rg --ignore --hidden --files<cr>
+"   nnoremap <silent> <Leader>fg :<C-u>Clap gfiles<CR>
+"   nnoremap <silent> <Leader>ag :<C-u>Clap grep<cr>
+"   nnoremap <silent> <Leader>fw :<C-u>Clap grep ++query=<cword><cr>
+"   nnoremap <silent> <Leader>fh :<C-u>Clap history<CR>
+"   nnoremap <silent> <Leader>fW :<C-u>Clap windows<CR>
+"   nnoremap <silent> <Leader>fl :<C-u>Clap loclist<CR>
+"   nnoremap <silent> <Leader>fu :<C-u>Clap git_diff_files<CR>
+"   nnoremap <silent> <Leader>fv :<C-u>Clap grep ++query=@visual<CR>
+"   nnoremap <silent> <Leader>oc :<C-u>Clap dotfiles<CR>
+"   nnoremap <silent> <LocalLeader>g :<C-u>Clap gosource<CR>
+" endif
+" 
+
+if dein#tap('telescope.nvim')
+  nnoremap <silent><leader>ff <cmd>Telescope find_files<cr>
+  nnoremap <silent><leader>fg <cmd>Telescope live_grep<cr>
+  nnoremap <silent><leader>bb <cmd>Telescope buffers<cr>
+  nnoremap <silent><leader>fh <cmd>Telescope help_tags<cr>
+  nnoremap <silent><leader>ag <cmd>Telescope grep_string<cr>
 endif
 
-if dein#tap('vim-quickui')
-  " tab menu
-  nnoremap <silent> <Leader>tm :call quickui#menu#open()<cr>
-  nnoremap <silent>K :call quickui#tools#clever_context('k', g:context_menu_k, {})<cr>
-endif
+" if dein#tap('vim-quickui')
+"   " tab menu
+"   nnoremap <silent> <Leader>tm :call quickui#menu#open()<cr>
+"   nnoremap <silent>K :call quickui#tools#clever_context('k', g:context_menu_k, {})<cr>
+" endif
