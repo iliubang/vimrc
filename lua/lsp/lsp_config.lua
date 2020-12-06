@@ -1,11 +1,14 @@
 local lspconfig = require('lspconfig')
--- local completion = require('completion')
-local telescope_mapper = require('tj.telescope.mappings')
+local completion = require('completion')
 
+vim.g.completion_confirm_key = ""
+vim.g.completion_matching_strategy_list = {'exact', 'substring', 'fuzzy'}
+vim.g.completion_enable_snippet = 'snippets.nvim'
+
+-- local telescope_mapper = require('telescope.mappings')
 local mapper = function(mode, key, result)
   vim.api.nvim_buf_set_keymap(0, mode, key, "<cmd>lua " .. result .. "<CR>", {noremap = true, silent = true})
 end
-
 
 function LspRename()
   local current_word = vim.fn.expand("<cword>")
@@ -28,11 +31,11 @@ function LspRename()
   vim.cmd [[startinsert]]
 end
 
-local custom_attach = function(client)
+local custom_attach = function(client, bufnr)
   if client.config.flags then
     client.config.flags.allow_incremental_sync = true
   end
-  -- completion.on_attach(client)
+  completion.on_attach(client, bufnr)
 
   mapper('n', '<leader>gd', 'vim.lsp.buf.definition()')
   mapper('n', '<leader>gD', 'vim.lsp.buf.declaration()')
@@ -41,17 +44,17 @@ local custom_attach = function(client)
   mapper('n', '<leader>rn', 'LspRename()')
   mapper('i', '<c-s>', 'vim.lsp.signature_help()')
 
-  telescope_mapper('<leader>gr', 'lsp_references', nil, true)
-  telescope_mapper('<leader>ca', 'lsp_code_actions', nil, true)
+  -- telescope_mapper('<leader>gr', 'lsp_references', nil, true)
+  -- telescope_mapper('<leader>ca', 'lsp_code_actions', nil, true)
 
   if vim.tbl_contains({"go", "rust"}, filetype) then
     vim.cmd [[autocmd BufWritePre <buffer> :lua vim.lsp.buf.formatting_sync()]]
   end
 
-  local filetype = vim.api.nvim_buf_get_option(0, 'filetype')
-  if filetype ~= 'lua' then
-    mapper('n', 'k', 'vim.lsp.buf.hover()')
-  end
+  -- local filetype = vim.api.nvim_buf_get_option(0, 'filetype')
+  -- if filetype ~= 'lua' then
+  --   mapper('n', 'k', 'vim.lsp.buf.hover()')
+  -- end
 end
 
 -- for python
@@ -73,6 +76,11 @@ lspconfig.vimls.setup({
 
 -- for golang
 lspconfig.gopls.setup({
+  cmd = {"gopls", "--remote=auto"},
+  init_options = {
+    usePlaceholders=true,
+    completeUnimported=true,
+  },
   on_attach = custom_attach
 })
 
@@ -82,6 +90,18 @@ require('nlua.lsp.nvim').setup(lspconfig, {
   globals = {
     "Color", "c", "Group", "g", "s",
     "RELOAD",
+  },
+  settings = {
+    Lua = {
+      diagnostics = {
+        enable = true,
+        globals = {"vim"}
+      },
+      runtime = {version = "LuaJIT"},
+      workspace = {
+        library = vim.list_extend({[vim.fn.expand("$VIMRUNTIME/lua")] = true},{}),
+      },
+    },
   }
 })
 
@@ -91,7 +111,31 @@ lspconfig.tsserver.setup({
 })
 
 -- for c/c++
-lspconfig.ccls.setup({
-  on_attach = custom_attach
+lspconfig.clangd.setup({
+  cmd = {
+    "clangd",
+    "--background-index",
+    "--suggest-missing-includes",
+    "--clang-tidy",
+    "--header-insertion=iwyu",
+  },
+  on_attach = custom_attach,
+  init_options = {
+    clangdFileStatus = true
+  }
 })
 
+-- for Dockerfile
+lspconfig.dockerls.setup({
+  cmd = { "docker-langserver", "--stdio" },
+  filetypes = { "Dockerfile", "dockerfile" },
+  on_attach = custom_attach,
+})
+
+
+-- for sh
+lspconfig.bashls.setup({
+  cmd = { "bash-language-server", "start" },
+  filetypes = { "sh" },
+  on_attach = custom_attach,
+})

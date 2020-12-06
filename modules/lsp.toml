@@ -17,3 +17,6 @@ repo = 'kyazdani42/nvim-web-devicons'
 [[plugins]]
 repo = 'tjdevries/nlua.nvim'
 depends = ['nvim-lspconfig', 'nvim-web-devicons']
+
+[[plugins]]
+repo = 'norcalli/snippets.nvim'
